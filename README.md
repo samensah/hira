@@ -195,7 +195,3 @@ year={2025},
 url={https://openreview.net/forum?id=TwJrTz9cRS}
 }
 ```
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
