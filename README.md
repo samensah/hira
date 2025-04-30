@@ -74,7 +74,7 @@ This formulation enables HiRA to achieve a high effective rank in the update whi
 For training on a single GPU, use the following command:
 
 ```bash
-python start_hira.py \
+python train_hira.py \
 --peft_type=hira \
 --model=meta-llama/Meta-Llama-3-8B \
 --r_ab=32 \
@@ -99,7 +99,7 @@ This command fine-tunes the Meta-Llama-3-8B model on the `common_170k` dataset u
 For multi-node or multi-GPU distributed training using DeepSpeed, you can use a script similar to the following:
 
 ```bash
-deepspeed --master_port=29500 --num_gpus=4 --num_nodes=2 --hostfile=hostfile start_hira.py \
+deepspeed --master_port=29500 --num_gpus=4 --num_nodes=2 --hostfile=hostfile train_hira.py \
 --peft_type=hira \
 --model=meta-llama/Meta-Llama-3-8B \
 --r_ab=32 \
@@ -112,7 +112,7 @@ deepspeed --master_port=29500 --num_gpus=4 --num_nodes=2 --hostfile=hostfile sta
 For one-node with multi-GPU training using DeepSpeed, you can use a script similar to the following:
 
 ```bash
-deepspeed --master_port=29500 --num_gpus=4 --num_nodes=1 start_hira.py \
+deepspeed --master_port=29500 --num_gpus=4 --num_nodes=1 train_hira.py \
 --peft_type=hira \
 --model=meta-llama/Meta-Llama-3-8B \
 --r_ab=32 \
