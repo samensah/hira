@@ -554,11 +554,13 @@ class Linear(nn.Linear, LoraLayer):
             x = x.to(self.lora_A[self.active_adapter].dtype)
             _prod_AB = torch.mm(self.lora_A[self.active_adapter].T, self.lora_B[self.active_adapter].T) + 1
             if self.rand_R:
+                # HiRA with Random Matrix: W_new = W₀ + R ⊙ (B·A)
                 result = F.linear(x, transpose(self.weight, self.fan_in_fan_out), bias=self.bias)
                 ab_result = F.linear(x, transpose(self.lora_R[self.active_adapter],
                                                   self.fan_in_fan_out) * (_prod_AB.T - 1), bias=self.bias)
                 result += ab_result
             else:
+                # Standard HiRA: W_new = W₀ ⊙ (I + B·A)
                 ab_result = F.linear(x, transpose(self.weight, self.fan_in_fan_out) * _prod_AB.T,
                                      bias=self.bias)
                 result = ab_result
